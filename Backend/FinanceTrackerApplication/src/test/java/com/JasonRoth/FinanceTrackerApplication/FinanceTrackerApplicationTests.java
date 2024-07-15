@@ -1,4 +1,4 @@
-package com.JasonRoth.financeTracker.FinanceTrackerApplication;
+package com.JasonRoth.FinanceTrackerApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

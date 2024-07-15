@@ -1,4 +1,4 @@
-package com.JasonRoth.financeTracker.FinanceTrackerApplication;
+package com.JasonRoth.FinanceTrackerApplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
