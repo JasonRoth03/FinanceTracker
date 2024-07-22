@@ -12,12 +12,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class AuthController {
 
     @Autowired
@@ -28,20 +29,17 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UserRepository userRepository;
 
-    @CrossOrigin(origins = "http://localhost:5173")
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest){
         try{
-            System.out.println("Attempting to authenticate user: " + authRequest.getUsername() + authRequest.getPassword());
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername().toLowerCase(), authRequest.getPassword()));
-            System.out.println("Authentication successful for user: " + authRequest.getUsername());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
-            System.out.println("Loaded User Details: " + userDetails.getUsername());
             String token = JwtUtils.generateToken((userDetails.getUsername()));
-            System.out.println("Generated JWT token: " + token);
 
             return ResponseEntity.ok(new AuthResponse(token));
         }catch(AuthenticationException e){
@@ -50,8 +48,7 @@ public class AuthController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
-    @PostMapping("/register")
+    @PostMapping("/api/register")
     public ResponseEntity<?> register(@RequestBody AuthRequest authRequest){
         //Register the user
        try{
