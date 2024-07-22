@@ -20,7 +20,7 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public List<Transaction> findTransactionByUserId(String userId) {
+    public List<Transaction> findAllTransactionByUserId(String userId) {
         return transactionRepository.findByUserId(userId);
     }
 
