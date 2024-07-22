@@ -17,6 +17,11 @@ function Login(){
             console.log('login failed', error);
         }
     }
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        navigate("/register");
+    }
     return(
         <div>
             <h2>Login</h2>
@@ -25,6 +30,7 @@ function Login(){
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required/>
                 <button type="submit">Login</button>
             </form>
+            <button onClick={handleRegister} type="button">Register</button>
         </div>
     );
 }
