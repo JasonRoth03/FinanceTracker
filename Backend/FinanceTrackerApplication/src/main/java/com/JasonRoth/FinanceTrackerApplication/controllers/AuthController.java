@@ -36,7 +36,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest){
         try{
             System.out.println("Attempting to authenticate user: " + authRequest.getUsername() + authRequest.getPassword());
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername().toLowerCase(), authRequest.getPassword()));
             System.out.println("Authentication successful for user: " + authRequest.getUsername());
             UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
             System.out.println("Loaded User Details: " + userDetails.getUsername());
@@ -62,7 +62,7 @@ public class AuthController {
        }catch(Exception e){
            //throws exception when username was not found i.e. username is valid
            User user = new User();
-           user.setUsername(authRequest.getUsername());
+           user.setUsername(authRequest.getUsername().toLowerCase());
            user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
            //Save user to database
            userRepository.save(user);
