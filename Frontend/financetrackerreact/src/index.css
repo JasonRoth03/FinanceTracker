@@ -39,7 +39,15 @@ header button {
     text-align: center;
     font-family: Inter, sans-serif;
     font-weight: normal;
-    font-size: 1.5rem;
+    font-size: 2rem;
+}
+
+.expenses-title{
+    margin-top: 0;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 2rem;
+    color: #07b100;
 }
 
 /* Add Transaction Styles */
@@ -95,6 +103,7 @@ header button {
     font-size: 18px;
     text-align: left;
     align-self: center;
+    border: 1px solid #009879;
 }
 
 .transaction-table thead tr{

@@ -4,8 +4,9 @@ import {useNavigate} from "react-router-dom";
 import AddTransaction from "./AddTransaction.jsx";
 function Dashboard() {
     const [expenses, setExpenses] = useState([]);
-    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const [categories, setCategories] = useState([]);
+    const [total, setTotal] = useState(0);
 
     let fetchData = React.useCallback( async () => {
         const token = localStorage.getItem("token");
@@ -17,7 +18,7 @@ function Dashboard() {
         setExpenses(response.data);
     }, []);
 
-    let fetchUsername = React.useCallback( async () => {
+    let fetchName = React.useCallback( async () => {
         const token = localStorage.getItem("token");
         const response = await axios.get("http://localhost:8080/api/user/", {
             headers: {
@@ -25,7 +26,7 @@ function Dashboard() {
             }
         });
         console.log(response.data);
-        setUsername(response.data);
+        setName(response.data.firstName + " " + response.data.lastName);
     }, []);
 
     let fetchCategories = React.useCallback( async () => {
@@ -41,15 +42,23 @@ function Dashboard() {
 
     useEffect(() => {
         fetchData();
-        fetchUsername();
+        fetchName();
         fetchCategories();
-    }, [fetchData, fetchUsername, fetchCategories]);
+    }, [fetchData, fetchName, fetchCategories]);
 
     const navigate = useNavigate();
     const handleLogout = () => {
       localStorage.removeItem("token");
       navigate("/");
     };
+
+    useEffect(() => {
+        let t = 0;
+        for(const e of expenses){
+            t += e.amount;
+        }
+        setTotal(t);
+    },[expenses])
 
     const handleDelete = async (e) => {
         let id = e.target.getAttribute("expense-id");
@@ -61,7 +70,7 @@ function Dashboard() {
                 }
             })
             console.log("Delete successful", response.data);
-            fetchData();
+            await fetchData();
         }catch (error){
             console.error(error)
         }
@@ -74,7 +83,8 @@ function Dashboard() {
                 <h1>FinanceTracker</h1>
                 <button onClick={handleLogout}>Logout</button>
             </header>
-            <h3 className="welcome-message">Welcome {username}</h3>
+            <h3 className="welcome-message">Welcome {name}</h3>
+            <h2 className="expenses-title">Total Expenses: ${total}</h2>
             <AddTransaction fetchData={fetchData}/>
             <table className="transaction-table">
                 <thead>
