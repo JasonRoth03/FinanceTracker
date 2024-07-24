@@ -1,0 +1,66 @@
+/* General Styles */
+.app-container {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container Styles */
+.login-container{
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h2{
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+/* Form Input Styles */
+.login-container input{
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Button Styles */
+.login-container button{
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.submit-button{
+    background-color: #007bff;
+}
+.submit-button:hover{
+    background-color: #0056b3;
+}
+
+
+.register-button{
+    background-color: #28a745;
+}
+
+.register-button:hover{
+    background-color: #218838;
+}
