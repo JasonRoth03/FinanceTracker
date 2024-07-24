@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
-    public String getCurrentUsername() {
-        return getCurrentUser();
-    }
-
-
-    private String getCurrentUser(){
+    public User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ((UserDetails)principal).getUsername();
+        String username = ((UserDetails)principal).getUsername();
+        return userService.findByUsername(username).orElse(null);
     }
 }

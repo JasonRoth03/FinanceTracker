@@ -59,6 +59,8 @@ public class AuthController {
        }catch(Exception e){
            //throws exception when username was not found i.e. username is valid
            User user = new User();
+           user.setFirstName(capitalize(authRequest.getFirstName()));
+           user.setLastName(capitalize(authRequest.getLastName()));
            user.setUsername(authRequest.getUsername().toLowerCase());
            user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
            //Save user to database
@@ -66,5 +68,9 @@ public class AuthController {
 
            return ResponseEntity.ok("User registered successfully");
        }
+    }
+
+    private String capitalize(String str){
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 }
