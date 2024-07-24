@@ -1,0 +1,135 @@
+body{
+    margin: 0;
+}
+
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    background-color: #01B3FF;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0;
+}
+
+header h1{
+    color: white;
+    font-size: 4rem;
+    margin-bottom: 0;
+    font-family: Inter, sans-serif;
+    font-weight: bold;
+}
+
+header button {
+    align-self: flex-end;
+    margin-top: 0;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    border: none;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    padding: 1em 2em;
+    font-size: 1em;
+}
+
+.welcome-message{
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    font-size: 1.5rem;
+}
+
+/* Add Transaction Styles */
+.add-transaction-container{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #01B3FF;
+    border-radius: 10px;
+    align-self: center;
+    width: 85%;
+    max-width: 900px;
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
+.add-transaction-container h3{
+    text-align: start;
+    font-family: Inter, sans-serif;
+}
+
+.add-transaction-container form{
+    align-items: center;
+}
+
+.styled-form input{
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.styled-form button{
+    display: block;
+    width: calc(100% - 22px);
+    padding: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Transaction Table Styles*/
+.transaction-table{
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px 5rem;
+    font-size: 18px;
+    text-align: left;
+    align-self: center;
+}
+
+.transaction-table thead tr{
+    background-color: #009879;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+
+.transaction-table th, .transaction-table td{
+    padding: 12px 15px;
+}
+
+.transaction-table tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+
+.transaction-table tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+
+.transaction-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.transaction-table button{
+    padding: 8px 16px;
+    color: white;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.transaction-table button:hover {
+    background-color: #ff1a1a;
+}

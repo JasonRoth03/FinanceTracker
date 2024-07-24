@@ -30,9 +30,9 @@ function AddTransaction({fetchData}){
         }
     }
     return(
-        <div>
+        <div className="add-transaction-container">
             <h3>Add a Transaction</h3>
-            <form onSubmit={handleNewTransaction}>
+            <form className="styled-form" onSubmit={handleNewTransaction}>
                 <input type="text" placeholder="Description" onChange={(e) => setDescription(e.target.value)} required/>
                 <input type="number" placeholder="Amount" onChange={(e) => setAmount(e.target.value)} required/>
                 <input type="date" placeholder="Date" onChange={(e) => setDate(e.target.value)} required/>
