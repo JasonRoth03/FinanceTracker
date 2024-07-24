@@ -43,6 +43,10 @@ public class TransactionController {
         transaction.setCategoryId(categoryService.findCategoryByName(transaction.getCategoryId()).getId());
         return transactionService.createTransaction(transaction);
     }
+    @DeleteMapping("/{id}")
+    public void deleteTransaction(@PathVariable String id) {
+        transactionService.deleteTransaction(id);
+    }
 
     private String getCurrentUserId(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
