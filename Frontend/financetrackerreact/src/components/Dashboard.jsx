@@ -51,18 +51,31 @@ function Dashboard() {
       navigate("/");
     };
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         let id = e.target.getAttribute("expense-id");
+        const token = localStorage.getItem("token");
+        try{
+            const response = await axios.delete(`http://localhost:8080/api/expenses/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log("Delete successful", response.data);
+            fetchData();
+        }catch (error){
+            console.error(error)
+        }
 
     };
 
     return(
-        <div>
+        <div className="dashboard-container">
             <header>
                 <h1>FinanceTracker</h1>
                 <button onClick={handleLogout}>Logout</button>
             </header>
             <h3 className="welcome-message">Welcome {username}</h3>
+            <AddTransaction fetchData={fetchData}/>
             <table className="transaction-table">
                 <thead>
                     <tr>
@@ -79,16 +92,18 @@ function Dashboard() {
                             <tr key={expense.id}>
                                 <td>{expense.description}</td>
                                 <td>{expense.amount}</td>
-                                <td>{categories.find(c => c.id === expense.categoryId)["name"]}</td>
+                                <td>{categories.find(c => c.id === expense.categoryId).name}</td>
                                 <td>{expense.date}</td>
-                                {/* eslint-disable-next-line react/no-unknown-property */}
-                                <button onClick={handleDelete} expense-id={expense.id}>Delete</button>
+                                <td>
+                                    {/* eslint-disable-next-line react/no-unknown-property */}
+                                    <button onClick={handleDelete} expense-id={expense.id}>Delete
+                                    </button>
+                                </td>
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
-            <AddTransaction fetchData={fetchData}/>
         </div>
     );
 }
