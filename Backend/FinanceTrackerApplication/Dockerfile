@@ -1,23 +1,15 @@
-# Use the Maven image to build the application
-FROM maven:3.8.5-openjdk-17 AS build
+# Use a base image that has Java installed
+FROM openjdk:17-jdk-alpine
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven wrapper files
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+# Copy the generated JAR file into the container
+COPY target/your-app-name.jar app.jar
 
-# Download the dependencies
-RUN ./mvnw dependency:go-offline -B
-
-# Copy the rest of the application code
-COPY src ./src
-
-# Package the application
-RUN ./mvnw clean package -DskipTests
-
-# Use the OpenJDK image to run the application
-FROM openjdk:17-jdk-slim
-WORKDIR /app
-COPY --from=build /app/target/FinanceTrackerApplication-0.1.jar /app.jar
+# Expose the port your application runs on
 EXPOSE 8080
+
+# Command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
