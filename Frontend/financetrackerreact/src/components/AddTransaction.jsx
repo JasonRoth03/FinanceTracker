@@ -18,12 +18,11 @@ function AddTransaction({fetchData}){
         }
         try{
             const token = localStorage.getItem("token");
-            const response = await axios.post("http://localhost:8080/api/expenses/", transactionData, {
+            await axios.post("http://localhost:8080/api/expenses/", transactionData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log(response.data);
             fetchData();
         }catch (error){
             console.log('new transaction failed',error);
