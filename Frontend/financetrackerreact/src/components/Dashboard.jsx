@@ -85,7 +85,7 @@ function Dashboard() {
             </header>
             <h3 className="welcome-message">Welcome {name}</h3>
             <h2 className="expenses-title">Total Expenses: ${total}</h2>
-            <AddTransaction fetchData={fetchData}/>
+            <AddTransaction fetchData={fetchData} fetchCategory={fetchCategories}/>
             <table className="transaction-table">
                 <thead>
                     <tr>
