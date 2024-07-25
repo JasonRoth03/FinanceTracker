@@ -10,6 +10,7 @@ const App = () => (
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<PrivateRoute component={dashboard} />} />
+            <Route path="/login" element={<Login />} />
         </Routes>
     </Router>
 );
