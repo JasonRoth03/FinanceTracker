@@ -31,7 +31,7 @@ dist-ssr
 bower_components
 
 *.sublime*
-
+dist.zip
 psd
 thumb
 sketch
