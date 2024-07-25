@@ -2,7 +2,7 @@ import {useState} from "react";
 import axios from "axios";
 
 // eslint-disable-next-line react/prop-types
-function AddTransaction({fetchData, fetchCategories}){
+function AddTransaction({fetchData}){
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState(0);
     const [date, setDate] = useState(new Date());
@@ -23,7 +23,6 @@ function AddTransaction({fetchData, fetchCategories}){
                     Authorization: `Bearer ${token}`
                 }
             });
-            fetchCategories();
             fetchData();
         }catch (error){
             console.log('new transaction failed',error);

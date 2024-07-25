@@ -5,7 +5,6 @@ import AddTransaction from "./AddTransaction.jsx";
 function Dashboard() {
     const [expenses, setExpenses] = useState([]);
     const [name, setName] = useState("");
-    const [categories, setCategories] = useState([]);
     const [total, setTotal] = useState(0);
 
     let fetchData = React.useCallback( async () => {
@@ -29,22 +28,10 @@ function Dashboard() {
         setName(response.data.firstName + " " + response.data.lastName);
     }, []);
 
-    let fetchCategories = React.useCallback( async () => {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/category/", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        setCategories(response.data);
-    }, []);
-
-
     useEffect(() => {
         fetchData();
         fetchName();
-        fetchCategories();
-    }, [fetchData, fetchName, fetchCategories]);
+    }, [fetchData, fetchName]);
 
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -85,7 +72,7 @@ function Dashboard() {
             </header>
             <h3 className="welcome-message">Welcome {name}</h3>
             <h2 className="expenses-title">Total Expenses: ${total}</h2>
-            <AddTransaction fetchData={fetchData} fetchCategory={fetchCategories}/>
+            <AddTransaction fetchData={fetchData}/>
             <table className="transaction-table">
                 <thead>
                     <tr>
@@ -102,7 +89,7 @@ function Dashboard() {
                             <tr key={expense.id}>
                                 <td>{expense.description}</td>
                                 <td>{expense.amount}</td>
-                                <td>{categories.find(c => c.id === expense.categoryId).name}</td>
+                                <td>{expense.category}</td>
                                 <td>{expense.date}</td>
                                 <td>
                                     {/* eslint-disable-next-line react/no-unknown-property */}
