@@ -6,8 +6,9 @@ WORKDIR /app
 
 # Copy the pom.xml and install dependencies
 COPY pom.xml .
+RUN mvn dependency:go-offline -B
 COPY src ./src
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 # Stage 2: Package
 FROM openjdk:17-jdk-alpine
@@ -18,9 +19,7 @@ WORKDIR /app
 # Copy the JAR file from the build stage
 COPY --from=builder /app/target/FinanceTrackerApplication-0.1.jar app.jar
 
-# Expose the port the application runs on
 EXPOSE 8080
-
 # Command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
