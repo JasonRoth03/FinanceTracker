@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Package
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk
 
 # Set the working directory inside the container
 WORKDIR /app

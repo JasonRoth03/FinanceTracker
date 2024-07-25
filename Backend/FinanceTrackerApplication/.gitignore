@@ -34,3 +34,5 @@ build/
 
 ### .env Files ###
 .env
+
+google-cloud-sdk/
