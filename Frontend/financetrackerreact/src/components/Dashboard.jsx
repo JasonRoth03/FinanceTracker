@@ -6,10 +6,11 @@ function Dashboard() {
     const [expenses, setExpenses] = useState([]);
     const [name, setName] = useState("");
     const [total, setTotal] = useState(0);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     let fetchData = React.useCallback( async () => {
         const token = localStorage.getItem("token");
-        const response = await axios.get("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/expenses/", {
+        const response = await axios.get(`${apiUrl}/api/expenses/`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -19,7 +20,7 @@ function Dashboard() {
 
     let fetchName = React.useCallback( async () => {
         const token = localStorage.getItem("token");
-        const response = await axios.get("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/user/", {
+        const response = await axios.get(`${apiUrl}/api/user/`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -51,7 +52,7 @@ function Dashboard() {
         let id = e.target.getAttribute("expense-id");
         const token = localStorage.getItem("token");
         try{
-            const response = await axios.delete(`https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/expenses/${id}`, {
+            const response = await axios.delete(`${apiUrl}/api/expenses/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

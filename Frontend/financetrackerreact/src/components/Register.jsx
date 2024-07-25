@@ -8,13 +8,14 @@ function Register() {
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try{
-            await axios.post("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/register", {firstName, lastName, username, password});
+            await axios.post(`${apiUrl}/api/register`, {firstName, lastName, username, password});
             navigate("/")
         }catch (error){
             console.log('register failed',error)

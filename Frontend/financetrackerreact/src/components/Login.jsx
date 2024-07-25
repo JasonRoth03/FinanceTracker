@@ -7,11 +7,12 @@ function Login(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.post("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/login", {username, password});
+            const response = await axios.post(`${apiUrl}/api/login`, {username, password});
             localStorage.setItem("token", response.data.token);
             navigate("/dashboard");
         }catch (error){

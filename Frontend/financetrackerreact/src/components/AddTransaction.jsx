@@ -7,6 +7,7 @@ function AddTransaction({fetchData}){
     const [amount, setAmount] = useState(0);
     const [date, setDate] = useState(new Date());
     const [categoryId, setCategoryId] = useState("");
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleNewTransaction = async (e) => {
         e.preventDefault();
@@ -18,7 +19,7 @@ function AddTransaction({fetchData}){
         }
         try{
             const token = localStorage.getItem("token");
-            await axios.post("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/expenses/", transactionData, {
+            await axios.post(`${apiUrl}/api/expenses/`, transactionData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
