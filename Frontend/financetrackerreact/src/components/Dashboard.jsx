@@ -16,7 +16,7 @@ function Dashboard() {
             }
         });
         setExpenses(response.data);
-    }, []);
+    }, [apiUrl]);
 
     let fetchName = React.useCallback( async () => {
         const token = localStorage.getItem("token");
@@ -27,7 +27,7 @@ function Dashboard() {
         });
         console.log(response.data);
         setName(response.data.firstName + " " + response.data.lastName);
-    }, []);
+    }, [apiUrl]);
 
     useEffect(() => {
         fetchData();
