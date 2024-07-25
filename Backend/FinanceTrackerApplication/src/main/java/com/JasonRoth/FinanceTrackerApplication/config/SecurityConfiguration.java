@@ -1,6 +1,7 @@
 package com.JasonRoth.FinanceTrackerApplication.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfiguration{
 
+    @Autowired
     private final CustomUserDetailsService userDetailsService;
 
     @Bean
