@@ -1,7 +1,8 @@
 # FinanceTracker
 
 FinanceTracker is a simple finance tracking application that allows users to register, log in, and manage their transactions. Users can view and delete transactions associated with their accounts.
-The application can be found at: https://jrfinancetracker.netlify.app
+
+The application can be found at: https://jrfinancetracker.netlify.app may have to refresh after first log in due to Google Cloud spin up
 
 ## Table of Contents
 - [Features](#features)
