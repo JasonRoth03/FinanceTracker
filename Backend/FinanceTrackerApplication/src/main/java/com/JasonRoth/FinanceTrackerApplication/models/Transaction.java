@@ -19,6 +19,6 @@ public class Transaction {
     private String description;
     private BigDecimal amount;
     private LocalDate date;
-    private String categoryId;
+    private String category;
     private String userId;
 }

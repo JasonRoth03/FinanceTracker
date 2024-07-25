@@ -35,12 +35,12 @@ public class TransactionController {
     public Transaction createTransaction(@RequestBody Transaction transaction) {
         System.out.println("Attempting to create transaction");
         transaction.setUserId(getCurrentUserId());
-        if(categoryService.findCategoryByName(transaction.getCategoryId()) == null){
+        if(categoryService.findCategoryByName(transaction.getCategory()) == null){
             Category category = new Category();
-            category.setName(transaction.getCategoryId());
+            category.setName(transaction.getCategory());
             categoryService.createCategory(category);
         }
-        transaction.setCategoryId(categoryService.findCategoryByName(transaction.getCategoryId()).getId());
+        transaction.setCategory(categoryService.findCategoryByName(transaction.getCategory()).getName());
         return transactionService.createTransaction(transaction);
     }
     @DeleteMapping("/{id}")
