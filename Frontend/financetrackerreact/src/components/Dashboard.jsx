@@ -10,7 +10,7 @@ function Dashboard() {
 
     let fetchData = React.useCallback( async () => {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8080/api/expenses/", {
+        const response = await axios.get("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/expenses/", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -20,7 +20,7 @@ function Dashboard() {
 
     let fetchName = React.useCallback( async () => {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8080/api/user/", {
+        const response = await axios.get("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/user/", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -31,7 +31,7 @@ function Dashboard() {
 
     let fetchCategories = React.useCallback( async () => {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8080/api/category/", {
+        const response = await axios.get("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/category/", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -64,7 +64,7 @@ function Dashboard() {
         let id = e.target.getAttribute("expense-id");
         const token = localStorage.getItem("token");
         try{
-            const response = await axios.delete(`http://localhost:8080/api/expenses/${id}`, {
+            const response = await axios.delete(`https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/expenses/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -14,7 +14,7 @@ function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         try{
-            await axios.post("http://localhost:8080/api/register", {firstName, lastName, username, password});
+            await axios.post("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/register", {firstName, lastName, username, password});
             navigate("/")
         }catch (error){
             console.log('register failed',error)

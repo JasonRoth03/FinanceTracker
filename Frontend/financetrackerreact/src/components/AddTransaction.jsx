@@ -18,7 +18,7 @@ function AddTransaction({fetchData}){
         }
         try{
             const token = localStorage.getItem("token");
-            await axios.post("http://localhost:8080/api/expenses/", transactionData, {
+            await axios.post("https://financetrackerapplication-i36vv3llhq-uk.a.run.app/api/expenses/", transactionData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
