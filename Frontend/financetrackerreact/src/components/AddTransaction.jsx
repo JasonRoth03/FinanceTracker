@@ -6,7 +6,7 @@ function AddTransaction({fetchData}){
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState(0);
     const [date, setDate] = useState(new Date());
-    const [categoryId, setCategoryId] = useState("");
+    const [category, setCategory] = useState("");
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleNewTransaction = async (e) => {
@@ -15,7 +15,7 @@ function AddTransaction({fetchData}){
             description,
             amount,
             date,
-            categoryId,
+            category,
         }
         try{
             const token = localStorage.getItem("token");
@@ -36,7 +36,7 @@ function AddTransaction({fetchData}){
                 <input type="text" placeholder="Description" onChange={(e) => setDescription(e.target.value)} required/>
                 <input type="number" placeholder="Amount" onChange={(e) => setAmount(e.target.value)} required/>
                 <input type="date" placeholder="Date" onChange={(e) => setDate(e.target.value)} required/>
-                <input type="text" placeholder="Category" onChange={(e) => setCategoryId(e.target.value)} required/>
+                <input type="text" placeholder="Category" onChange={(e) => setCategory(e.target.value)} required/>
                 <button type="submit">Submit</button>
             </form>
         </div>
