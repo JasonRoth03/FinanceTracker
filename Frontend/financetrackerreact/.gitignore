@@ -34,3 +34,6 @@ bower_components
 psd
 thumb
 sketch
+
+### Enviornment ###
+.env
