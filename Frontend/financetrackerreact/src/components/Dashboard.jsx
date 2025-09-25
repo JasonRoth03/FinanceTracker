@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import AddTransaction from "./AddTransaction.jsx";
+import Header from './Header.jsx'
 function Dashboard() {
     const [expenses, setExpenses] = useState([]);
     const [name, setName] = useState("");
@@ -48,8 +49,8 @@ function Dashboard() {
         setTotal(t);
     },[expenses])
 
-    const handleDelete = async (e) => {
-        const id = e.target.getAttribute("expense-id");
+    const handleDelete = async (id) => {
+        if (!id) return;
         const token = localStorage.getItem("token");
         try {
             const response = await axios.delete(`${apiUrl}/api/expenses/${id}`, {
@@ -66,10 +67,7 @@ function Dashboard() {
 
     return(
         <div className="dashboard-container">
-            <header>
-                <h1>FinanceTracker</h1>
-                <button onClick={handleLogout}>Logout</button>
-            </header>
+                        <Header onLogout={handleLogout} />
             <h3 className="welcome-message">Welcome {name}</h3>
             <h2 className="expenses-title">Total Expenses: ${total}</h2>
             <AddTransaction fetchData={fetchData}/>
@@ -84,7 +82,7 @@ function Dashboard() {
                     </tr>
                 </thead>
                 <tbody>
-                    {expenses.map((expense) =>{
+                    {Array.isArray(expenses) && expenses.length > 0 ? expenses.map((expense) =>{
                         return (
                             <tr key={expense.id}>
                                 <td>{expense.description}</td>
@@ -92,13 +90,15 @@ function Dashboard() {
                                 <td>{expense.category}</td>
                                 <td>{expense.date}</td>
                                 <td>
-                                    {/* eslint-disable-next-line react/no-unknown-property */}
-                                    <button onClick={handleDelete} expense-id={expense.id}>Delete
-                                    </button>
+                                    <button onClick={() => handleDelete(expense.id)}>Delete</button>
                                 </td>
                             </tr>
                         )
-                    })}
+                    }) : (
+                        <tr>
+                            <td colSpan="5">No expenses found.</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div>

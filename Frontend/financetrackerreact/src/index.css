@@ -1,144 +1,220 @@
+:root{
+    --bg-0: #071027; /* page background */
+    --bg-1: rgba(255,255,255,0.03); /* card glass */
+    --card: #0f1724;
+    --accent: #06b6d4; /* teal */
+    --accent-2: #8b5cf6; /* purple */
+    --muted: #9aa7bd;
+    --text: #e6eef8;
+    --success: #06b644;
+    --danger: #ff6b6b;
+    --glass-border: rgba(255,255,255,0.04);
+}
+
+/* Reset / base */
+*{box-sizing: border-box}
+html,body{
+    height: 100%;
+}
 body{
     margin: 0;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: linear-gradient(180deg, var(--bg-0) 0%, #071026 60%);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .dashboard-container{
-    display: flex;
-    flex-direction: column;
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
 }
 
 header{
-    background-color: #01B3FF;
+    grid-column: 1 / -1;
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
 }
 
 header h1{
-    color: white;
-    font-size: 4rem;
-    margin-bottom: 0;
-    font-family: Inter, sans-serif;
-    font-weight: bold;
+    color: var(--text);
+    font-size: 1.6rem;
+    margin: 0;
 }
 
 header button {
-    align-self: flex-end;
-    margin-top: 0;
-    margin-right: 1em;
-    margin-bottom: 1em;
     border: none;
     border-radius: 10px;
-    background-color: antiquewhite;
-    padding: 1em 2em;
-    font-size: 1em;
+    background: linear-gradient(90deg, var(--accent-2), var(--accent));
+    color: white;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(6,182,212,0.12);
 }
 
 .welcome-message{
-    text-align: center;
-    font-family: Inter, sans-serif;
-    font-weight: normal;
-    font-size: 2rem;
+    grid-column: 1 / 2;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 8px 0 0 4px;
+    color: var(--text);
 }
 
 .expenses-title{
-    margin-top: 0;
-    text-align: center;
-    font-family: Inter, sans-serif;
-    font-size: 2rem;
-    color: #07b100;
+    grid-column: 1 / 2;
+    margin: 6px 0 0 4px;
+    font-size: 1rem;
+    color: var(--success);
 }
 
-/* Add Transaction Styles */
+/* Balance card + sidebar */
+.balance-card{
+    background: linear-gradient(90deg,var(--accent) 0%, var(--accent-2) 100%);
+    color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 12px 40px rgba(11,74,89,0.12);
+}
+
+/* Add Transaction area - keep existing layout but modernize */
 .add-transaction-container{
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
-    border: 5px solid #01B3FF;
+    background: var(--bg-1);
     border-radius: 10px;
-    align-self: center;
-    width: 85%;
-    max-width: 900px;
-    margin-bottom: 2em;
-    padding: 1em;
-}
-
-.add-transaction-container h3{
-    text-align: start;
-    font-family: Inter, sans-serif;
-}
-
-.add-transaction-container form{
-    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--glass-border);
 }
 
 .styled-form input{
-    width: calc(100% - 22px);
+    width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.015);
+    color: var(--text);
 }
 
 .styled-form button{
-    display: block;
-    width: calc(100% - 22px);
-    padding: 10px 0;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
-    background-color: #007bff;
+    background: linear-gradient(90deg,var(--accent-2),var(--accent));
     color: white;
-    font-size: 16px;
     cursor: pointer;
-    box-sizing: border-box;
 }
 
-/* Transaction Table Styles*/
+/* Transaction Table — modern card style */
 .transaction-table{
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
-    margin: 20px 5rem;
-    font-size: 18px;
+    font-size: 14px;
     text-align: left;
-    align-self: center;
-    border: 1px solid #009879;
+    margin-top: 12px;
+    /* make the table span the full dashboard width (both columns) */
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.5);
 }
 
 .transaction-table thead tr{
-    background-color: #009879;
-    color: white;
-    text-align: left;
-    font-weight: bold;
+    background: linear-gradient(90deg, rgba(6,182,212,0.14), rgba(139,92,246,0.12));
+    color: var(--text);
+    font-weight: 700;
 }
 
 .transaction-table th, .transaction-table td{
-    padding: 12px 15px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
 .transaction-table tbody tr{
-    border-bottom: 1px solid #dddddd;
+    transition: background 150ms ease;
+}
+
+.transaction-table tbody tr:hover{
+    background: rgba(255,255,255,0.02);
 }
 
 .transaction-table tbody tr:nth-of-type(even){
-    background-color: #f3f3f3;
-}
-
-.transaction-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+    background: rgba(255,255,255,0.01);
 }
 
 .transaction-table button{
-    padding: 8px 16px;
+    padding: 8px 12px;
     color: white;
-    background-color: #ff4d4d;
+    background: var(--danger);
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 120ms ease, background 120ms ease;
 }
 
-.transaction-table button:hover {
-    background-color: #ff1a1a;
+.transaction-table button:hover{
+    transform: translateY(-2px);
 }
+
+/* Responsive tweaks */
+@media (max-width: 900px){
+    .dashboard-container{grid-template-columns: 1fr; padding: 12px}
+    header{flex-direction: column; gap: 12px}
+}
+
+/* Small utility classes used by Dashboard.jsx */
+.card{background:#fff;color:#071026}
+
+/* Auth header wrapper — keep same max width and spacing as dashboard */
+.auth-header{
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px; /* matches dashboard padding */
+}
+
+.auth-header header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-actions{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.auth-link{
+    color: var(--text);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.01);
+    transition: background 120ms ease, transform 120ms ease;
+}
+
+.auth-link:hover{background: rgba(255,255,255,0.02); transform: translateY(-2px)}
+
+.auth-link svg{vertical-align: middle; fill: currentColor}
+.auth-link span{vertical-align: middle}
+

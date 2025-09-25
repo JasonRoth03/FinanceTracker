@@ -3,6 +3,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import dashboard from "./components/Dashboard";
+import Dashboard from './components/Dashboard';
 
 const App = () => (
     <Router>
@@ -10,6 +11,7 @@ const App = () => (
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<PrivateRoute component={dashboard} />} />
+            <Route path="/dashboardTest" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
         </Routes>
     </Router>

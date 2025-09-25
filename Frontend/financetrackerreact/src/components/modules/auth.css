@@ -1,4 +1,4 @@
-/* Use theme variables from index.css to match dashboard styling */
+/* Unified auth styles for Login and Register pages — uses dashboard theme variables from index.css */
 .app-container{
     min-height: 100vh;
     display: flex;
@@ -11,7 +11,7 @@
 
 .login-container{
     width: 100%;
-    max-width: 480px;
+    max-width: 520px;
     background: var(--bg-1);
     border: 1px solid var(--glass-border);
     padding: 28px;
@@ -26,6 +26,8 @@
     font-size: 1.4rem;
     color: var(--text);
 }
+
+.auth-subtitle{color:var(--muted); font-size:0.9rem; margin-bottom:12px}
 
 .login-container input{
     width: 100%;
@@ -66,4 +68,9 @@
     margin-top: 8px;
     color: var(--muted);
     font-size: 13px;
+}
+
+/* small responsive tweak */
+@media (max-width: 520px){
+    .login-container{padding:20px; border-radius:10px}
 }

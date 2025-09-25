@@ -1,7 +1,8 @@
 import {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import './modules/login.css'
+import './modules/auth.css'
+import AuthCard from './AuthCard.jsx'
 
 function Login(){
     const [username, setUsername] = useState("");
@@ -24,18 +25,15 @@ function Login(){
         e.preventDefault();
         navigate("/register");
     }
-    return(
-        <div className="app-container">
-            <div className="login-container">
-                <h2>Login</h2>
-                <form onSubmit={handleLogin}>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required/>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required/>
-                    <button className="submit-button" type="submit">Login</button>
-                </form>
-                <button className="register-button" onClick={handleRegister} type="button" >Register Page</button>
-            </div>
-        </div>
+
+    return (
+        <AuthCard title="Login" secondaryLabel="Register Page" onSecondaryClick={handleRegister}>
+            <form onSubmit={handleLogin} className="styled-form">
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required/>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required/>
+                <button className="submit-button" type="submit">Login</button>
+            </form>
+        </AuthCard>
     );
 }
 
