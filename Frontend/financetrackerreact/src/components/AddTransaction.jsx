@@ -7,7 +7,15 @@ function AddTransaction({fetchData}){
     // amountStr holds numeric text only (e.g. "12.34"). The $ prefix is shown visually.
     const [amountStr, setAmountStr] = useState("");
     const [amountFocused, setAmountFocused] = useState(false);
-    const [date, setDate] = useState(new Date().toISOString().slice(0,10));
+    const getLocalISODate = () => {
+        const d = new Date();
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
+    }
+
+    const [date, setDate] = useState(getLocalISODate());
     const [category, setCategory] = useState("");
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -37,7 +45,7 @@ function AddTransaction({fetchData}){
             // Clear the form after successful submit
             setDescription("");
             setAmountStr("");
-            setDate(new Date().toISOString().slice(0,10));
+            setDate(getLocalISODate());
             setCategory("");
             await fetchData();
         }catch (error){

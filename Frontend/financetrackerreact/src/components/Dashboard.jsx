@@ -57,6 +57,25 @@ function Dashboard() {
         setTotal(t);
     },[expenses])
 
+    const formatCurrency = (value) => new Intl.NumberFormat(undefined, {style: 'currency', currency: 'USD'}).format(value);
+
+    // Parse date strings like 'YYYY-MM-DD' as local dates to avoid timezone shifts
+    const toLocalDateString = (dateInput) => {
+        if (!dateInput) return '';
+        // if string like 2025-09-25, create a local Date using components
+        if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateInput)){
+            const [y,m,d] = dateInput.split('-').map(Number);
+            const local = new Date(y, m - 1, d);
+            return local.toLocaleDateString();
+        }
+        // fallback
+        try{
+            return new Date(dateInput).toLocaleDateString();
+        }catch{
+            return String(dateInput);
+        }
+    }
+
     const handleDelete = async (id) => {
         if (!id) return;
         const token = localStorage.getItem("token");
@@ -77,7 +96,7 @@ function Dashboard() {
         <div className="dashboard-container">
                         <Header onLogout={handleLogout} />
             <h3 className="welcome-message">Welcome {name}</h3>
-            <h2 className="expenses-title">Total Expenses: ${total}</h2>
+            <h2 className="expenses-title">Total Expenses: {formatCurrency(total)}</h2>
             <AddTransaction fetchData={fetchData}/>
             <table className="transaction-table">
                 <thead>
@@ -96,7 +115,7 @@ function Dashboard() {
                             const id = expense && (expense._id || expense.id) ? (expense._id || expense.id) : Math.random().toString(36).slice(2,9);
                             const desc = expense && expense.description ? expense.description : '';
                             const amt = expense && typeof expense.amount === 'number' ? expense.amount : 0;
-                            const dt = expense && expense.date ? new Date(expense.date).toLocaleDateString() : '';
+                            const dt = expense && expense.date ? toLocalDateString(expense.date) : '';
                             const cat = expense && expense.category ? expense.category : '';
                             return (
                                 <tr key={id}>
