@@ -21,17 +21,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class AuthController {
 
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private CustomUserDetailsService userDetailsService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserRepository userRepository;
+
+    public AuthController(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+    }
 
     @PostMapping("/api/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest){
@@ -57,7 +57,7 @@ public class AuthController {
            return ResponseEntity.status(401).body("Username already exists");
 
        }catch(Exception e){
-           //throws exception when username was not found i.e. username is valid
+           //throws exception when username was not found i.e. username is invalid
            User user = new User();
            user.setFirstName(capitalize(authRequest.getFirstName()));
            user.setLastName(capitalize(authRequest.getLastName()));
