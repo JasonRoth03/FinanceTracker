@@ -49,20 +49,19 @@ function Dashboard() {
     },[expenses])
 
     const handleDelete = async (e) => {
-        let id = e.target.getAttribute("expense-id");
+        const id = e.target.getAttribute("expense-id");
         const token = localStorage.getItem("token");
-        try{
+        try {
             const response = await axios.delete(`${apiUrl}/api/expenses/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            });
             console.log("Delete successful", response.data);
             await fetchData();
-        }catch (error){
-            console.error(error)
+        } catch (error) {
+            console.error(error);
         }
-
     };
 
     return(
