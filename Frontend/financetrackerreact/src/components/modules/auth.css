@@ -70,6 +70,16 @@
     font-size: 13px;
 }
 
+.form-error{
+    background: rgba(255,107,107,0.08);
+    color: var(--danger);
+    border: 1px solid rgba(255,107,107,0.14);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
 /* small responsive tweak */
 @media (max-width: 520px){
     .login-container{padding:20px; border-radius:10px}
