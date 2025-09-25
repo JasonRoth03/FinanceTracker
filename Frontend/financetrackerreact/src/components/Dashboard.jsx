@@ -11,12 +11,20 @@ function Dashboard() {
 
     let fetchData = React.useCallback( async () => {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${apiUrl}/api/expenses/`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        setExpenses(response.data);
+        try{
+            const response = await axios.get(`${apiUrl}/api/expenses/`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            // Ensure we always store an array in state to avoid .map runtime errors
+            const data = response && response.data ? response.data : [];
+            setExpenses(Array.isArray(data) ? data : []);
+        }catch(err){
+            console.error('fetchData error', err);
+            // On error, keep expenses as empty array to avoid crashing the UI
+            setExpenses([]);
+        }
     }, [apiUrl]);
 
     let fetchName = React.useCallback( async () => {
@@ -74,27 +82,35 @@ function Dashboard() {
             <table className="transaction-table">
                 <thead>
                     <tr>
-                        <th>Expense</th>
+                        <th>Description</th>
                         <th>Amount</th>
-                        <th>Category</th>
                         <th>Date</th>
-                        <th>Delete</th>
+                        <th>Category</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Array.isArray(expenses) && expenses.length > 0 ? expenses.map((expense) =>{
-                        return (
-                            <tr key={expense.id}>
-                                <td>{expense.description}</td>
-                                <td>{expense.amount}</td>
-                                <td>{expense.category}</td>
-                                <td>{expense.date}</td>
-                                <td>
-                                    <button onClick={() => handleDelete(expense.id)}>Delete</button>
-                                </td>
-                            </tr>
-                        )
-                    }) : (
+                    {Array.isArray(expenses) && expenses.length ? (
+                        expenses.map((expense) => {
+                            // defensive rendering in case some fields are missing
+                            const id = expense && (expense._id || expense.id) ? (expense._id || expense.id) : Math.random().toString(36).slice(2,9);
+                            const desc = expense && expense.description ? expense.description : '';
+                            const amt = expense && typeof expense.amount === 'number' ? expense.amount : 0;
+                            const dt = expense && expense.date ? new Date(expense.date).toLocaleDateString() : '';
+                            const cat = expense && expense.category ? expense.category : '';
+                            return (
+                                <tr key={id}>
+                                    <td>{desc}</td>
+                                    <td>{new Intl.NumberFormat(undefined, {style: 'currency', currency: 'USD'}).format(amt)}</td>
+                                    <td>{dt}</td>
+                                    <td>{cat}</td>
+                                    <td>
+                                        <button className="delete-btn" onClick={() => handleDelete(id)}>Delete</button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    ) : (
                         <tr>
                             <td colSpan="5">No expenses found.</td>
                         </tr>
